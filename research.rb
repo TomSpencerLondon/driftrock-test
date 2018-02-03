@@ -44,3 +44,21 @@ end
 user_id = find_id("purdy_elva@bahringer.net")
 
 p user_id
+
+
+def total_sales_of_each_product
+  output = Hash.new(0)
+  api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
+
+  enum = api_request_enumerator(api_request_proc)
+  enum.each do |hash|
+    output[hash['item']] += 1
+  end
+  output
+end
+
+def product_with_most_sales
+  (total_sales_of_each_product.max_by { |k, v| v })[0]
+end
+
+p product_with_most_sales

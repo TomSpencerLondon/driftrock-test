@@ -20,5 +20,4 @@ class APIRequest
     response.body
   end
 
-
 end
