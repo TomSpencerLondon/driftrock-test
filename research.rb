@@ -57,8 +57,65 @@ def total_sales_of_each_product
   output
 end
 
-def product_with_most_sales
+def most_sold
   (total_sales_of_each_product.max_by { |k, v| v })[0]
 end
 
-p product_with_most_sales
+p most_sold
+
+
+def total_spend(email_address)
+  user_id = find_id(email_address)
+  total_spend = 0
+  api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
+
+  enum = api_request_enumerator(api_request_proc)
+  enum.each do |hash|
+    total_spend += hash['spend'].to_i if hash['user_id'] == user_id
+  end
+  "£%.2f" % total_spend
+end
+
+p total_spend("purdy_elva@bahringer.net")
+
+
+#       number_of_items += 1 if hash['user_id'] == user_id
+#     end
+#     p total_spend
+#     page_number += 1
+#     reached_end = array.length < per_page
+#   end
+# end
+
+
+# def user_total_spend(user_id)
+#   p user_id
+#   api_request = APIRequest.new
+#
+#   page_number = 1
+#   per_page = 2000
+#   reached_end = false
+#   total_spend = 0
+#   number_of_items = 0
+#
+#   until reached_end
+#     p page_number
+#     object = JSON.parse(api_request.purchases(page_number, per_page))
+#     array = object['data']
+#
+#     p array.length
+#     array.each do |hash|
+#       total_spend += hash['spend'].to_i if hash['user_id'] == user_id
+#       number_of_items += 1 if hash['user_id'] == user_id
+#     end
+#     p total_spend
+#     page_number += 1
+#     reached_end = array.length < per_page
+#   end
+#
+#   p "The total spend is #{total_spend} and the amount of items bought is #{number_of_items}"
+#
+#   p "The average spend for this customer was #{total_spend / number_of_items}"
+# end
+#
+# p user_total_spend("8BP2-06PI-ORLV-X6A4")
