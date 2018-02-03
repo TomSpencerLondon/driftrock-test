@@ -2,14 +2,12 @@ require_relative 'app'
 require 'json'
 
 def find_email(requested_id)
-  api_request = APIRequest.new
-
   page_number = 1
   per_page = 20
   reached_end = false
 
   until reached_end
-    object = JSON.parse(api_request.users(page_number, per_page))
+    object = JSON.parse(APIRequest.users(page_number, per_page))
     array = object['data']
 
     array.each do |hash|
