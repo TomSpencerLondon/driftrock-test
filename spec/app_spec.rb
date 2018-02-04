@@ -6,6 +6,7 @@ describe App do
     users_json = JSON.parse(File.read("./spec/users.json"))
     purchases_json = JSON.parse(File.read("./spec/purchases.json"))
     let(:api_request) { double :api_request, users: users_json, purchases: purchases_json }
+
     describe 'find_email' do
         it 'finds an email from a requested id' do
             allow(api_request).to receive(:api_request_enumerator).and_return(users_json)
@@ -29,6 +30,12 @@ describe App do
             end 
             allow(app).to receive(:total_sales_of_each_product).and_return(output)
             expect(app.most_sold).to eq("Enormous Linen Plate")
+        end 
+    end 
+
+    describe 'most_loyal' do 
+        it 'finds the most loyal customer' do 
+            expect(app.most_loyal).to eq("bogisich_judah@hilperttromp.biz")
         end 
     end 
 
