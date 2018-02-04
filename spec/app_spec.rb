@@ -3,8 +3,9 @@ require_relative '../app'
 describe App do
 
     subject(:app) { described_class.new }
+
     users_json = JSON.parse(File.read("./spec/users.json"))
-    purchases_json = JSON.parse(File.read("./spec/purchases.json"))
+    purchases_json = JSON.parse(File.read("./spec/purchases.json")) 
     let(:api_request) { double :api_request, users: users_json, purchases: purchases_json }
 
     describe 'find_email' do
@@ -22,7 +23,6 @@ describe App do
 
     describe 'most_sold' do 
         it 'finds the item that has been sold the most' do 
-            allow(api_request).to receive(:api_request_enumerator).and_return(purchases_json)
             array = purchases_json['data']
             output = Hash.new(0)
             array.each do |hash|
