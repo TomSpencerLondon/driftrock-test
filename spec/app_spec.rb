@@ -1,11 +1,11 @@
 require_relative '../app'
 
 describe App do
-  subject(:app) { described_class.new }
-  users_json = JSON.parse(File.read("./spec/users.json"))
-  purchases_json = JSON.parse(File.read("./spec/purchases.json"))
-  
-  let(:api_request) { double :api_request, users: users_json, purchases: purchases_json }
+
+    subject(:app) { described_class.new }
+    users_json = JSON.parse(File.read("./spec/users.json"))
+    purchases_json = JSON.parse(File.read("./spec/purchases.json"))
+    let(:api_request) { double :api_request, users: users_json, purchases: purchases_json }
 
     describe 'find_email' do
         it 'finds an email from a requested id' do
@@ -13,5 +13,12 @@ describe App do
             expect(app.find_email("S27G-8UMJ-LDSL-UOPN")).to eq ("terry_henry@doyle.io")
         end
     end 
+
+    describe 'find_id' do 
+        it 'finds an id from a requested email' do 
+            expect(app.find_id("jack_lakin@rodriguezschuppe.io")).to eq("ZZLB-4HCN-OA3N-LGWB")
+        end 
+    end 
+
 end 
 
