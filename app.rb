@@ -59,6 +59,7 @@ class App
   def total_orders_by_each_user
     output = Hash.new(0)
     api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
+    
     enum = APIRequest.api_request_enumerator(api_request_proc)
     enum.each do |hash|
       output[hash['user_id']] += 1
