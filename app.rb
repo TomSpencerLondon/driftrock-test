@@ -1,6 +1,6 @@
 require_relative 'api'
 require 'json'
-
+require 'pry'
 
 class App 
 
@@ -31,6 +31,18 @@ class App
     find_email(user_id)
   end
 
+  def total_spend(email_address)
+    user_id = find_id(email_address)
+    total_spend = 0
+    api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
+
+    enum = APIRequest.api_request_enumerator(api_request_proc)
+    enum.each do |hash|
+      total_spend += hash['spend'].to_i if hash['user_id'] == user_id
+    end
+    "£%.2f" % total_spend
+  end
+
   private 
 
   def total_sales_of_each_product
@@ -54,17 +66,6 @@ class App
     output
   end
 
-  def total_spend(email_address)
-    user_id = find_id(email_address)
-    total_spend = 0
-    api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
-
-    enum = APIRequest.api_request_enumerator(api_request_proc)
-    enum.each do |hash|
-      total_spend += hash['spend'].to_i if hash['user_id'] == user_id
-    end
-    "£%.2f" % total_spend
-  end
 
 end 
 

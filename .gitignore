@@ -1,2 +1,4 @@
+.gitignore
 test.rb
 testing_argv.rb
+double_spec
