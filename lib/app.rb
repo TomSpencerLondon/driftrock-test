@@ -40,7 +40,7 @@ class App
     enum.each do |hash|
       total_spend += hash['spend'].to_i if hash['user_id'] == user_id
     end
-    "£%.2f".format(total_spend)
+    "£%.2f" % total_spend
   end
 
   private 
