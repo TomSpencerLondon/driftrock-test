@@ -23,11 +23,11 @@ class App
   end
 
   def most_sold
-    (total_sales_of_each_product.max_by { |k, v| v })[0]
+    (total_sales_of_each_product.max_by { |_, v| v })[0]
   end
 
   def most_loyal
-    user_id = (total_orders_by_each_user.max_by { |k, v| v })[0]
+    user_id = (total_orders_by_each_user.max_by { |_, v| v })[0]
     find_email(user_id)
   end
 
@@ -40,14 +40,14 @@ class App
     enum.each do |hash|
       total_spend += hash['spend'].to_i if hash['user_id'] == user_id
     end
-    "£%.2f" % total_spend
+    "£%.2f".format(total_spend)
   end
 
   private 
 
   def total_sales_of_each_product
     output = Hash.new(0)
-    api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
+    api_request_proc = proc { |page_number, per_page| APIRequest.purchases(page_number, per_page) }
 
     enum = APIRequest.api_request_enumerator(api_request_proc)
     enum.each do |hash|
@@ -58,7 +58,7 @@ class App
 
   def total_orders_by_each_user
     output = Hash.new(0)
-    api_request_proc = Proc.new{ |page_number, per_page| APIRequest.purchases(page_number, per_page) }
+    api_request_proc = proc { |page_number, per_page| APIRequest.purchases(page_number, per_page) }
     
     enum = APIRequest.api_request_enumerator(api_request_proc)
     enum.each do |hash|
