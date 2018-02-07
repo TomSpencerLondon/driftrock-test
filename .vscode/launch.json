@@ -9,7 +9,7 @@
             "type": "Ruby",
             "request": "launch",
             "cwd": "${workspaceRoot}",
-            "program": "${workspaceRoot}/app.rb", 
+            "program": "${workspaceRoot}/lib/app.rb", 
             "args": [
                 "total_spend", 
                 "bogisich_judah@hilperttromp.biz"
