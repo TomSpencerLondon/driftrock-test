@@ -26,7 +26,7 @@ This is a command line application so it is necessary to clone the file in order
 ```
 $ git clone https
 $ cd drifrock-test
-$ run app.rb with the required method: ‘ruby app.rb most_sold’ OR ‘ruby app.rb total_spend “purdy_elva@bahringer.net”' OR ‘ruby app.rb most_loyal’
+$ run app.rb with the required method: ‘ruby app.rb most_sold’ OR ‘ruby app.rb total_spend purdy_elva@bahringer.net' OR ‘ruby app.rb most_loyal’
 ```
 ## If I had more time...I would include:
 * Effective testing for API calls 
